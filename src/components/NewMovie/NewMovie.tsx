@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TextField } from '../TextField';
 import { Movie } from '../../types/Movie';
 
@@ -12,21 +12,21 @@ export const NewMovie = ({ onAdd }: MovieProps) => {
   const [titleAvailable, setTitleAvailable] = useState('');
   const [descriptionAvailable, setDescriptionAvailable] = useState('');
   const [imageUrlAvailable, setImageUrlAvailable] = useState('');
-  const [imbdUrlAvailable, setImbdUrlAvailable] = useState('');
-  const [imbdIdAvailable, setImbdIdAvailable] = useState('');
+  const [imdbUrlAvailable, setImdbUrlAvailable] = useState('');
+  const [imdbIdAvailable, setImdbIdAvailable] = useState('');
 
   const [isDisabled, setIsDisabled] = useState(true);
 
-  const handleButton = () => {
+  useEffect(() => {
     if (
       titleAvailable.trim() &&
       imageUrlAvailable.trim() &&
-      imbdIdAvailable.trim() &&
-      imbdUrlAvailable.trim()
+      imdbIdAvailable.trim() &&
+      imdbUrlAvailable.trim()
     ) {
       setIsDisabled(false);
     }
-  };
+  }, [imageUrlAvailable, imdbIdAvailable, imdbUrlAvailable, titleAvailable]);
 
   return (
     <form
@@ -39,8 +39,8 @@ export const NewMovie = ({ onAdd }: MovieProps) => {
           title: titleAvailable,
           description: descriptionAvailable,
           imgUrl: imageUrlAvailable,
-          imdbUrl: imbdUrlAvailable,
-          imdbId: imbdIdAvailable,
+          imdbUrl: imdbUrlAvailable,
+          imdbId: imdbIdAvailable,
         };
 
         onAdd(movie);
@@ -48,8 +48,8 @@ export const NewMovie = ({ onAdd }: MovieProps) => {
         setTitleAvailable('');
         setDescriptionAvailable('');
         setImageUrlAvailable('');
-        setImbdUrlAvailable('');
-        setImbdIdAvailable('');
+        setImdbUrlAvailable('');
+        setImdbIdAvailable('');
         setIsDisabled(true);
 
         setCount(prev => prev + 1);
@@ -63,7 +63,6 @@ export const NewMovie = ({ onAdd }: MovieProps) => {
         value={titleAvailable}
         onChange={event => {
           setTitleAvailable(event);
-          handleButton();
         }}
         required
       />
@@ -74,7 +73,6 @@ export const NewMovie = ({ onAdd }: MovieProps) => {
         value={descriptionAvailable}
         onChange={event => {
           setDescriptionAvailable(event);
-          handleButton();
         }}
       />
 
@@ -92,10 +90,9 @@ export const NewMovie = ({ onAdd }: MovieProps) => {
       <TextField
         name="imdbUrl"
         label="Imdb URL"
-        value={imbdUrlAvailable}
+        value={imdbUrlAvailable}
         onChange={event => {
-          setImbdUrlAvailable(event);
-          handleButton();
+          setImdbUrlAvailable(event);
         }}
         required
       />
@@ -103,10 +100,9 @@ export const NewMovie = ({ onAdd }: MovieProps) => {
       <TextField
         name="imdbId"
         label="Imdb ID"
-        value={imbdIdAvailable}
+        value={imdbIdAvailable}
         onChange={event => {
-          setImbdIdAvailable(event);
-          handleButton();
+          setImdbIdAvailable(event);
         }}
         required
       />
