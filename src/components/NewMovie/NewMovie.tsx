@@ -82,7 +82,6 @@ export const NewMovie = ({ onAdd }: MovieProps) => {
         value={imageUrlAvailable}
         onChange={event => {
           setImageUrlAvailable(event);
-          handleButton();
         }}
         required
       />
