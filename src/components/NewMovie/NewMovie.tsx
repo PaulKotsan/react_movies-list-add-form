@@ -25,6 +25,8 @@ export const NewMovie = ({ onAdd }: MovieProps) => {
       imdbUrlAvailable.trim()
     ) {
       setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
     }
   }, [imageUrlAvailable, imdbIdAvailable, imdbUrlAvailable, titleAvailable]);
 
